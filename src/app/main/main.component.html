@@ -1,0 +1,88 @@
+<div [hidden]="items.length === 0">
+    <carousel [isAnimated]="true">
+        <slide *ngFor="let item of items">
+            <img [src]="item.image" alt="Image" class="carousel-image">
+        </slide>
+    </carousel>
+</div>
+<div fxLayout="row" fxLayoutAlign="center">
+    <mat-card class="card-item">
+        <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon class="divider-icon">local_shipping</mat-icon>
+            <p>Fast delivery</p>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="card-item">
+        <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon class="divider-icon">support_agent</mat-icon>
+            <p>24/7 support</p>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="card-item">
+        <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon class="divider-icon">lock</mat-icon>
+            <p>Safe payment</p>
+        </mat-card-content>
+    </mat-card>
+</div>
+<div class="mb-15">
+    <mat-tab-group class="mb-15">
+        <mat-tab label="Our recommend">
+            <carousel fxHide.lt-sm="true" [itemsPerSlide]="2" [isAnimated]="true" [showIndicators]="false"
+                [interval]="2000">
+                <slide *ngFor="let product of productService.getRecommended()">
+                    <app-item [product]="product" class="rel-pos-item"></app-item>
+                </slide>
+            </carousel>
+            <carousel fxHide.gt-xs="true" [itemsPerSlide]="1" [isAnimated]="true" [showIndicators]="false"
+                [interval]="2000">
+                <slide *ngFor="let product of productService.getRecommended()">
+                    <app-item [product]="product" class="rel-pos-item"></app-item>
+                </slide>
+            </carousel>
+        </mat-tab>
+        <mat-tab label="Best seller">
+            <carousel fxHide.lt-sm="true" [itemsPerSlide]="2" [isAnimated]="true" [showIndicators]="false"
+                [interval]="2000">
+                <slide *ngFor="let product of productService.getBestSeller()">
+                    <app-item [product]="product" class="rel-pos-item"></app-item>
+                </slide>
+            </carousel>
+            <carousel fxHide.gt-xs="true" [itemsPerSlide]="1" [isAnimated]="true" [showIndicators]="false"
+                [interval]="2000">
+                <slide *ngFor="let product of productService.getBestSeller()">
+                    <app-item [product]="product" class="rel-pos-item"></app-item>
+                </slide>
+            </carousel>
+        </mat-tab>
+    </mat-tab-group>
+    <mat-accordion *ngIf="this.userService.currentUser !== undefined">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Based on your favorites
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <carousel fxHide.lt-sm="true" [itemsPerSlide]="2" [isAnimated]="true" [showIndicators]="false" [interval]="2000">
+                <slide *ngFor="let product of productService.filterByCategory(this.userService.currentUser.fav_category)">
+                    <app-item [product]="product" [less_place]="true" class="rel-pos-item"></app-item>
+                </slide>
+            </carousel>
+            <carousel fxHide.gt-xs="true" [itemsPerSlide]="1" [isAnimated]="true" [showIndicators]="false" [interval]="2000">
+                <slide *ngFor="let product of productService.filterByCategory(this.userService.currentUser.fav_category)">
+                    <app-item [product]="product" [less_place]="true" class="rel-pos-item"></app-item>
+                </slide>
+            </carousel>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<div>
+    <mat-card fxFlex fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="16px">
+        <mat-card-content>
+            <p>To explore our entire catalog, simply click below.</p>
+        </mat-card-content>
+        <mat-card-content>
+            <a routerLink="/Category"><button mat-raised-button color="warn">Check more</button></a>
+        </mat-card-content>
+    </mat-card>
+</div>

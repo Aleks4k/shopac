@@ -1,0 +1,129 @@
+<section class="container section-edit-profile" *ngIf="this.userService.currentUser !== undefined">
+    <h2>Edit profile</h2>
+    <mat-tab-group>
+        <mat-tab label="General Information">
+            <div class="container tab-group-edit">
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)" fxLayoutGap="15px">
+                    <div fxLayout="column" fxLayoutAlign="space-between">
+                        <div fxLayout="column">
+                            <mat-label for="name">Name:</mat-label>
+                            <mat-form-field>
+                                <input type="text" id="name" placeholder="Name" matInput ngModel name="name"
+                                    #nameInput="ngModel" required [(ngModel)]="this.name">
+                                <mat-error *ngIf="nameInput.hasError('required')">This field is required.</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="column">
+                            <mat-label for="surname">Surname:</mat-label>
+                            <mat-form-field>
+                                <input type="text" id="surname" placeholder="Surname" matInput ngModel name="surname"
+                                    #surnameInput="ngModel" required [(ngModel)]="this.surname">
+                                <mat-error *ngIf="surnameInput.hasError('required')">This field is required.</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="column">
+                            <mat-label for="email">Email:</mat-label>
+                            <mat-form-field fxFlex>
+                                <input type="email" id="email" placeholder="Email" matInput ngModel name="email"
+                                    #emailInput="ngModel" required email [(ngModel)]="this.email">
+                                <mat-error *ngIf="emailInput.hasError('required')">This field is required.</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutAlign="center">
+                            <button fxFlex="40%" type="submit" mat-raised-button color="warn"
+                                [disabled]="f.invalid">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </mat-tab>
+        <mat-tab label="Change Password">
+            <div class="container tab-group-edit">
+                <form #pwForm="ngForm" (ngSubmit)="changePassword(pwForm)" fxLayoutGap="15px">
+                    <div fxLayout="column" fxLayoutAlign="space-between">
+                        <div fxLayout="column">
+                            <mat-label for="oldPassword">Old password:</mat-label>
+                            <mat-form-field>
+                                <input type="password" id="oldPassword" placeholder="Old Password" matInput ngModel
+                                    name="oldPassword" #oldPasswordInput="ngModel" required minlength="8">
+                                <mat-error *ngIf="oldPasswordInput.hasError('required')">This field is
+                                    required.</mat-error>
+                                <mat-error *ngIf="oldPasswordInput.hasError('minlength')">Password must be at least 8
+                                    characters long.</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="column">
+                            <mat-label for="newPassword">New password:</mat-label>
+                            <mat-form-field>
+                                <input type="password" id="newPassword" placeholder="New Password" matInput ngModel
+                                    name="newPassword" #newPasswordInput="ngModel" required minlength="8">
+                                <mat-error *ngIf="newPasswordInput.hasError('required')">This field is
+                                    required.</mat-error>
+                                <mat-error *ngIf="newPasswordInput.hasError('minlength')">Password must be at least 8
+                                    characters long.</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutAlign="center">
+                            <button fxFlex="40%" type="submit" mat-raised-button color="warn"
+                                [disabled]="pwForm.invalid">Change password</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </mat-tab>
+        <mat-tab label="Other Data">
+            <div class="container">
+                <form #otherInfo="ngForm" (ngSubmit)="onSubmitOther(otherInfo)" fxLayoutGap="15px">
+                    <div fxLayout="column" fxLayoutAlign="space-between">
+                        <div fxLayout="column">
+                            <mat-label for="dob">Date of birth:</mat-label>
+                            <mat-form-field fxFlex>
+                                <mat-label>Choose a date</mat-label>
+                                <input id="dob" matInput name="dob" ngModel #dateInput="ngModel" [matDatepicker]="picker" required [(ngModel)] = "this.dateOfBirth">
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-error *ngIf="dateInput.hasError('required')">This field is required.</mat-error>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="column">
+                            <mat-label for="gender">Gender:</mat-label>
+                            <mat-radio-group id="gender" name="gender" required [(ngModel)]="this.gender">
+                                <mat-radio-button value="male">Male</mat-radio-button>
+                                <mat-radio-button value="female">Female</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <mat-label for="address">Address:</mat-label>
+                            <mat-form-field fxFlex>
+                                <input type="text" id="address" placeholder="Address." matInput ngModel name="address" #addressInput="ngModel"
+                                    required [(ngModel)]="this.address">
+                                <mat-error *ngIf="addressInput.hasError('required')">This field is required.</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <mat-label for="phone">Phone:</mat-label>
+                            <mat-form-field fxFlex>
+                                <input type="text" id="phone" placeholder="+381xxxxxxxxx" matInput ngModel name="phone" #phoneInput="ngModel"
+                                    required [(ngModel)]="this.phone_number">
+                                <mat-error *ngIf="phoneInput.hasError('required')">This field is required.</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex fxLayout="column">
+                            <mat-label for="fav_category">Choose your favorite category:</mat-label>
+                            <mat-form-field fxFlex>
+                                <mat-select name="fav_category" [(ngModel)]="fav_category" required>
+                                    <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutAlign="center">
+                            <button fxFlex="40%" type="submit" mat-raised-button color="warn"
+                                [disabled]="otherInfo.invalid">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</section>

@@ -1,0 +1,61 @@
+<div class="container">
+    <h1>Order history</h1>
+    <mat-accordion *ngIf="userPurchases?.length !== 0">
+        <mat-expansion-panel *ngFor="let item of this.userPurchases">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{ item.dateOfPurchase | date }}
+                </mat-panel-title>
+                <mat-panel-description>
+                    Total: RSD {{ purchaseService.getPurchaseSpending(item.id) }}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>Order status: {{ item.status }}</p>
+            <h2>Items:</h2>
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let product of item.items">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{ productService.getProductById(product.item_id)?.name }}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Total: RSD {{ product.quantity*product.price }}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>Size: {{product.size}}</p>
+                    <p>Price per item: RSD{{product.price}}</p>
+                    <p>Quantity: {{product.quantity}}</p>
+                    <p>Category: {{ productService.getProductById(product.item_id)?.category }}</p>
+                    <p>Manufacturer: {{ productService.getProductById(product.item_id)?.manufacturer }}</p>
+                    <p>Date of Manufacture: {{ productService.getProductById(product.item_id)?.dateOfManufacture | date
+                        }}</p>
+                    <p>Total sold: {{ productService.getProductById(product.item_id)?.totalSold }}</p>
+                    <rating [ngModel]="calculateAverage(productService.getProductById(product.item_id)?.reviews!)"
+                        [max]="5" [readonly]="true"></rating>
+                    <p>{{ calculateAverage(productService.getProductById(product.item_id)?.reviews!) }} rating from {{
+                        productService.getProductById(product.item_id)?.reviews?.length }} votes</p>
+                    <div *ngIf="item.status === 'arrived' && product.review !== 0">
+                        <p>Your current rating: {{ product.review }}</p>
+                    </div>
+                    <div *ngIf="item.status === 'arrived'">
+                        <p>Place your review:</p>
+                        <rating [(ngModel)]="rate" [max]="max" [readonly]="false" (click)="rateProduct(product.item_id, item.id, item.user_id)" (onHover)="hoveringOver($event)"
+                            (onLeave)="resetStar()"></rating>
+                        <span class="label"
+                            [ngStyle]="{display: (overStar) ? 'inline' : 'none'}">{{this.percent}}</span>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <div *ngIf="item.status === 'arrived'" fxLayoutAlign="end" class="delete-btn">
+                <button mat-raised-button color="warn" (click)="deleteOrder(item.id, item.user_id)">Delete</button>
+            </div>
+            <div *ngIf="item.status === 'in progress'" fxLayoutAlign="end" class="delete-btn">
+                <button mat-raised-button color="warn" (click)="cancelOrder(item.id, item.user_id)">Cancel
+                    order</button>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <div *ngIf="userPurchases?.length === 0" class="items-container empty-cart">
+        <h2 fxFlex fxLayoutAlign="center center" class="h2-style">No previous orders.</h2>
+    </div>
+</div>

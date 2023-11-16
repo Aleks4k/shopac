@@ -1,0 +1,82 @@
+<div class="container">
+    <h1>Cart</h1>
+    <div *ngIf="user_cart !== undefined" class="items-container" fxLayout="column">
+        <table class="table" fxFlex>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of user_cart.items">
+                    <td class="td-middle col-2">
+                        <div *ngIf="this.productService.getProductById(item.id) as product">
+                            <img fxFlex="80px" fxFlex.xs="40px" [src]="product.image" alt="{{product.name}}">
+                        </div>
+                    </td>
+                    <td class="td-middle col-5">
+                        <div *ngIf="this.productService.getProductById(item.id) as product">
+                            {{product.name + ' ' + item.size}}
+                        </div>
+                    </td>
+                    <td class="td-middle col-2">
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <mat-icon (click)="decrement(item.id, item.size)">remove</mat-icon>
+                            <input type="text" [value]="item.quantity" class="qty-input" readonly>
+                            <mat-icon (click)="increment(item.id, item.size)">add</mat-icon>
+                        </div>
+                    </td>
+                    <td class="td-middle col-1">
+                        <div *ngIf="this.productService.getProductById(item.id) as product">
+                            {{product.price}}RSD
+                        </div>
+                    </td>
+                    <td class="td-middle col-1">
+                        <div *ngIf="this.productService.getProductById(item.id) as product">
+                            {{product.price * item.quantity}}RSD
+                        </div>
+                    </td>
+                    <td class="td-middle col-1">
+                        <mat-icon (click)="remove(item.id, item.size)">delete</mat-icon>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="w-100" fxLayoutAlign="end">
+            <div fxFlex="30%" fxFlex.xs="80%" class="order-summary" fxLayout="column" fxLayoutGap="15px">
+                <h2>
+                    Order overview
+                </h2>
+                <div fxLayout="row">
+                    <div>
+                        <p>Shipping:</p>
+                    </div>
+                    <div fxFlex fxLayoutAlign="end">
+                        <p>0RSD</p>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div>
+                        <h2>Total:</h2>
+                    </div>
+                    <div fxFlex fxLayoutAlign="end">
+                        <h2>{{ getTotalPrice() }}</h2>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div fxFlex fxLayoutAlign="center">
+                        <button mat-raised-button color="warn" (click)="finishOrder(user_cart)">Finish order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="user_cart === undefined" class="items-container empty-cart">
+        <h2 fxFlex fxLayoutAlign="center center" class="h2-style">Your cart is empty</h2>
+    </div>
+</div>

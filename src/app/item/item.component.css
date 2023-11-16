@@ -1,0 +1,34 @@
+.product {
+    border: 1px solid #ccc;
+    padding:15px;
+    height: 820px;
+}
+.product_lp {
+    border: 1px solid #ccc;
+    padding:15px;
+    height: 470px;
+}
+.ul-item{
+    list-style-type: none; 
+    padding: 0;
+}
+.hm{
+    position: relative; /* Set the parent to a relative position */
+}
+.discount{
+    position:absolute;
+    width:50px;
+    height:50px;
+    top:0px;
+    right:10px;
+    color:white;
+    background-color: #3f51b5;
+    font-weight: bold;
+}
+::ng-deep .bs-rating-star {
+    font-size: 50px;
+    color: #3f51b5;
+}
+.product-image{
+    width: 100%;
+}

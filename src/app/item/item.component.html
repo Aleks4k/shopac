@@ -1,0 +1,27 @@
+<div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center" [ngClass]="!this.less_place?'product':'product_lp'">
+    <img fxFlex [src]="product.image" alt="{{ product.name }}">
+    <h2>{{ product.name }}</h2>
+    <div *ngIf="!this.less_place">
+        <p>Category: {{ product.category }}</p>
+        <p>Manufacturer: {{ product.manufacturer }}</p>
+        <p>Date of manufacture: {{ product.dateOfManufacture | date }}</p>
+        <p>Available Sizes:</p>
+        <mat-chip-listbox multiple="true" disabled>
+            <mat-chip-option *ngFor="let size of sizes" [selected]="checkSize(size)">
+              {{size}}
+            </mat-chip-option>
+        </mat-chip-listbox>
+        <p>Total sold: {{ product.totalSold }}</p>
+        <rating [(ngModel)]="rate" [max]="5" [readonly]="true"></rating>
+        <p>{{ this.average }} rating from {{ product.reviews.length }} votes</p>
+    </div>
+    <mat-label for="size">Choose size:</mat-label>
+    <mat-chip-listbox id="size" name="size" [(ngModel)]="size">
+        <mat-chip-option *ngFor="let sized of this.product.size">
+            {{sized}}
+        </mat-chip-option>
+    </mat-chip-listbox>
+    <div class="discount" fxLayoutAlign="center center" *ngIf="product.discount !== undefined">-{{product.discount}}%</div>
+    <h2>Price: RSD{{ product.price }}</h2>
+    <button mat-raised-button color="warn" (click)="addToCart()">Add to cart</button>
+</div>

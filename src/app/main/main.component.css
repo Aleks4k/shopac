@@ -1,0 +1,25 @@
+.carousel-image{
+    width: 100%;
+}
+.c-100-h {
+    height: 100px;
+}
+.divider-icon {
+    transform: scale(2);
+}
+.card-item {
+    width: 33%;
+}
+::ng-deep .carousel .carousel-control-prev-icon, ::ng-deep .carousel .carousel-control-next-icon {
+    background-color: #000;
+    width: 50px;
+    height: 50px;
+    background-size: 41%;
+    border-radius: 50%;
+}
+.mb-15{
+    margin-bottom: 15px;
+}
+.rel-pos-item{
+    position: relative;
+}

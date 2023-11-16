@@ -1,0 +1,124 @@
+<div class="container">
+    <h1>All items</h1>
+    <mat-sidenav-container>
+        <mat-sidenav [autoFocus]="false" #filter mode="side" opened="true" fxHide.lt-md="true" position="start">
+            <mat-nav-list>
+                <h2>Categories</h2>
+                <mat-chip-listbox class="mat-mdc-chip-set-stacked" multiple="true">
+                    <mat-chip-option *ngFor="let category of categories" [selected]="isCategorySelected(category)" (click)="toggleCategory(category)">
+                      {{category}}
+                    </mat-chip-option>
+                </mat-chip-listbox>
+                <h2>Sizes</h2>
+                <mat-chip-listbox class="mat-mdc-chip-set-stacked" multiple="true">
+                    <mat-chip-option *ngFor="let size of sizes" [selected]="isSizeSelected(size)" (click)="toggleSize(size)">
+                      {{size}}
+                    </mat-chip-option>
+                </mat-chip-listbox>
+                <h2>Manufacturer</h2>
+                <mat-chip-listbox class="mat-mdc-chip-set-stacked" multiple="true">
+                    <mat-chip-option *ngFor="let man of manufacturers" [selected]="isManSelected(man)" (click)="toggleMan(man)">
+                      {{man}}
+                    </mat-chip-option>
+                </mat-chip-listbox>
+                <h2>Price</h2>
+                <div class="w-95-p" fxLayoutAlign="center center" fxLayout="column">
+                    <mat-slider [min]="this.minItemPrice" [max]="this.maximumItemPrice" discrete class="w-80-p" (focusout)="togglePrice()">
+                        <input matSliderStartThumb [(value)]="minValueFilter">
+                        <input matSliderEndThumb [(value)]="maxValueFilter">
+                    </mat-slider>
+                    <div class="w-80-p" fxLayout="row" fxLayoutAlign="space-between">
+                        <p>{{ this.minValueFilter }}</p>
+                        <p>{{ this.maxValueFilter }}</p>
+                    </div>
+                </div>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav [autoFocus]="false" #filter_md fxHide.gt-sm="true" position="end">
+            <mat-nav-list>
+                <h2>Categories</h2>
+                <mat-chip-listbox class="mat-mdc-chip-set-stacked" multiple="true">
+                    <mat-chip-option *ngFor="let category of categories" [selected]="isCategorySelected(category)" (click)="toggleCategory(category)">
+                      {{category}}
+                    </mat-chip-option>
+                </mat-chip-listbox>
+                <h2>Sizes</h2>
+                <mat-chip-listbox class="mat-mdc-chip-set-stacked" multiple="true">
+                    <mat-chip-option *ngFor="let size of sizes" [selected]="isSizeSelected(size)" (click)="toggleSize(size)">
+                      {{size}}
+                    </mat-chip-option>
+                </mat-chip-listbox>
+                <h2>Manufacturer</h2>
+                <mat-chip-listbox class="mat-mdc-chip-set-stacked" multiple="true">
+                    <mat-chip-option *ngFor="let man of manufacturers" [selected]="isManSelected(man)" (click)="toggleMan(man)">
+                      {{man}}
+                    </mat-chip-option>
+                </mat-chip-listbox>
+                <h2>Price</h2>
+                <div class="w-95-p" fxLayoutAlign="center center" fxLayout="column">
+                    <mat-slider [min]="this.minItemPrice" [max]="this.maximumItemPrice" discrete class="w-80-p" (focusout)="togglePrice()">
+                        <input matSliderStartThumb [(value)]="minValueFilter">
+                        <input matSliderEndThumb [(value)]="maxValueFilter">
+                    </mat-slider>
+                    <div class="w-80-p" fxLayout="row" fxLayoutAlign="space-between">
+                        <p>{{ this.minValueFilter }}</p>
+                        <p>{{ this.maxValueFilter }}</p>
+                    </div>
+                </div>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div class="row">
+                <div class="col-12" fxFlex fxLayoutAlign="start">
+                    <mat-form-field fxFlex>
+                        <mat-label>Search</mat-label>
+                        <input [(ngModel)]="search_input" matInput placeholder="jakna" (keyup)="search()">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row" fxHide.lt-md="true">
+                <div class="col-6" fxFlex fxLayoutAlign="start center">Sort:
+                    <mat-select [(value)]="sorting_option" class="select-cat" (selectionChange)="sort_by()" placeholder="Default">
+                        <mat-option value="default">Default</mat-option>
+                        <mat-option value="option11">Discount</mat-option>
+                        <mat-option value="option3">Price ascending</mat-option>
+                        <mat-option value="option4">Price descending</mat-option>
+                        <mat-option value="option7">Average rating ascending</mat-option>
+                        <mat-option value="option8">Average rating descending</mat-option>
+                        <mat-option value="option1">Date of manufacture ascending</mat-option>
+                        <mat-option value="option2">Date of manufacture descending</mat-option>
+                        <mat-option value="option5">Sold items ascending</mat-option>
+                        <mat-option value="option6">Sold items descending</mat-option>
+                        <mat-option value="option9">Number of reviews ascending</mat-option>
+                        <mat-option value="option10">Number of reviews descending</mat-option>
+                    </mat-select>
+                </div>
+                <div class="col-6" fxFlex fxLayoutAlign="end center" (click)="filter.toggle()">Toggle Filter<mat-icon>menu</mat-icon></div>
+            </div>
+            <div class="row" fxHide.gt-sm="true">
+                <div class="col-6" fxFlex fxLayoutAlign="start center" (click)="filter_md.toggle()">Toggle Filter<mat-icon>menu</mat-icon></div>
+                <div class="col-6" fxFlex fxLayoutAlign="end center">Sort:
+                    <mat-select [(value)]="sorting_option" class="select-cat" (selectionChange)="sort_by()" placeholder="Default">
+                        <mat-option value="default">Default</mat-option>
+                        <mat-option value="option11">Discount</mat-option>
+                        <mat-option value="option3">Price ascending</mat-option>
+                        <mat-option value="option4">Price descending</mat-option>
+                        <mat-option value="option7">Average rating ascending</mat-option>
+                        <mat-option value="option8">Average rating descending</mat-option>
+                        <mat-option value="option1">Date of manufacture ascending</mat-option>
+                        <mat-option value="option2">Date of manufacture descending</mat-option>
+                        <mat-option value="option5">Sold items ascending</mat-option>
+                        <mat-option value="option6">Sold items descending</mat-option>
+                        <mat-option value="option9">Number of reviews ascending</mat-option>
+                        <mat-option value="option10">Number of reviews descending</mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-sm-12 item-cat" *ngFor="let product of products">
+                    <app-item class="rel-pos-item" [product]="product"></app-item>
+                </div>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

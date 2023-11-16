@@ -1,0 +1,29 @@
+mat-sidenav-content {
+    height: 100%;
+    padding: 20px;
+    background-color: white;
+    min-height: 300px;
+}
+mat-sidenav{
+    width: 250px;
+    padding: 20px;
+}
+mat-sidenav-container{
+    height: 100%;
+}
+.item-cat{
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+.select-cat{
+    margin-left: 10px;
+}
+.w-80-p{
+    width: 80%;
+}
+.w-95-p{
+    width: 95%;
+}
+.rel-pos-item{
+    position: relative;
+}

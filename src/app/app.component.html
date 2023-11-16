@@ -1,0 +1,65 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav>
+        <!--Ideja je da ovde kasnije bude kao neki filter kategorija za view allProducts.-->
+        <mat-nav-list>
+            <a mat-list-item *ngFor="let cat of categories" (click)="sidenav.close();onCategorySelected(cat);">
+                {{ cat }}
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary" fxLayoutGap="16px" class="toolbar-padding toolbar-sticky">
+            <mat-icon (click)="sidenav.toggle()" class="icon-display">menu</mat-icon>
+            <div fxFlex fxLayoutAlign="start center" class="col-4 logo_holder">
+                <img routerLink="/" src="assets/images/logo.png" alt="logo" class="logo">
+            </div>
+            <div fxFlex fxLayoutAlign="end" fxLayoutGap="20px">
+                <div *ngIf="this.userService.currentUser === undefined">
+                    <a (click)="openLoginDialog()" class="a-account"
+                        fxLayout="column" fxLayoutAlign="center center">
+                        <mat-icon class="a-icon-display">person</mat-icon>
+                        <div class="a-font-a">Account</div>
+                    </a>
+                </div>
+                <div *ngIf="this.userService.currentUser !== undefined" fxLayout="column">
+                    <a (click)="openEditDialog()" class="a-account" fxLayout="column"
+                        fxLayoutAlign="center center">
+                        <mat-icon class="a-icon-display">person</mat-icon>
+                        <div class="a-font-a">{{ this.userService.currentUser.name }}</div>
+                    </a>
+                    <div *ngIf="isClickedProfile" class="popper-logged" fxLayout="column">
+                        <a (click)="logoff()" mat-raised-button><mat-icon>logout</mat-icon>Sign out</a>
+                        <a (click)="editProfile()" mat-raised-button><mat-icon>person</mat-icon>Edit profile</a>
+                        <a (click)="openHistory()" mat-raised-button><mat-icon>history</mat-icon>Order history</a>
+                    </div>
+                </div>
+                <div>
+                    <a (click)="gotoCart()" fxLayout="column" fxLayoutAlign="center center">
+                        <mat-icon class="a-icon-display" [matBadge]="getCartTotalItems()" matBadgePosition="after" matBadgeSize="small" matBadgeColor="accent">shopping_cart</mat-icon>
+                        <div class="a-font-a">{{ getCartTitle() }}</div>
+                    </a>
+                </div>
+            </div>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+        <footer class="footer-margin">
+            <mat-card class="p-10-px" fxFlex fxLayout="row" fxLayoutAlign="center">
+                <mat-card-content class="p-0">
+                    <img src="assets/images/p-1.png" alt="" title="Master secured" class="pay-program" loadedimage="true">
+                </mat-card-content>
+                <mat-card-content>
+                    <img src="assets/images/p-2.jpeg" alt="" title="Visa secured" class="pay-program" loadedimage="true">
+                </mat-card-content>
+                <mat-card-content>
+                    <img src="assets/images/p-3.png" alt="" title="Visa" class="pay-program" loadedimage="true">
+                </mat-card-content>
+                <mat-card-content>
+                    <img src="assets/images/p-4.png" alt="" title="Dina" class="pay-program" loadedimage="true">
+                </mat-card-content>
+                <mat-card-content class="p-0">
+                    <img src="assets/images/p-5.jpeg" alt="" title="Master" class="pay-program" loadedimage="true">
+                </mat-card-content>
+            </mat-card>
+        </footer>
+    </mat-sidenav-content>
+</mat-sidenav-container>

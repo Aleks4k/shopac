@@ -1,0 +1,17 @@
+.login-card{
+    background-color: #F4F4F4;
+}
+.login-card-content {
+    padding: 10px 16px 10px 16px;
+}
+.login-form{
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+.reg-btn {
+    text-decoration: none;
+}
+.hr-login {
+    width:100px;
+    height: 11px;
+}

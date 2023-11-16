@@ -1,0 +1,104 @@
+<section class="container section-reg">
+    <h2>Registration</h2>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" fxLayoutGap="15px">
+        <div fxLayout="column" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+                <div fxFlex="50%" fxFlex.xs="100%" fxLayout="column">
+                    <mat-label for="name">Name:</mat-label>
+                    <mat-form-field>
+                        <input type="text" id="name" placeholder="Name" matInput ngModel name="name" #nameInput="ngModel"
+                            required>
+                        <mat-error *ngIf="nameInput.hasError('required')">This field is required.</mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%" fxFlex.xs="100%" fxLayout="column">
+                    <mat-label for="surname">Surname:</mat-label>
+                    <mat-form-field>
+                        <input type="text" id="surname" placeholder="Surname" matInput ngModel name="surname"
+                            #surnameInput="ngModel" required>
+                        <mat-error *ngIf="surnameInput.hasError('required')">This field is required.</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+                <div fxFlex="50%" fxFlex.xs="100%" fxLayout="column">
+                    <mat-label for="email">Email:</mat-label>
+                    <mat-form-field fxFlex>
+                        <input type="email" id="email" placeholder="Email." matInput ngModel name="email" #emailInput="ngModel"
+                            required email>
+                        <mat-error *ngIf="emailInput.hasError('required')">This field is required.</mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%" fxFlex.xs="100%" fxLayout="column">
+                    <mat-label for="password">Password:</mat-label>
+                    <mat-form-field fxFlex>
+                        <input type="password" id="password" placeholder="Password." matInput ngModel name="password" #passwordInput="ngModel"
+                            required minlength="8">
+                        <mat-error *ngIf="passwordInput.hasError('required')">This field is required.</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+                <div fxFlex="50%" fxFlex.xs="100%" fxLayout="column">
+                    <mat-label for="dob">Date of birth:</mat-label>
+                    <mat-form-field fxFlex>
+                        <mat-label>Choose a date</mat-label>
+                        <input id="dob" matInput name="dob" ngModel #dateInput="ngModel" [matDatepicker]="picker" required>
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-error *ngIf="dateInput.hasError('required')">This field is required.</mat-error>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50%" fxFlex.xs="100%" fxLayout="column">
+                    <mat-label for="gender">Gender:</mat-label>
+                    <mat-radio-group id="gender" name="gender" required [(ngModel)]="gender">
+                        <mat-radio-button value="male">Male</mat-radio-button>
+                        <mat-radio-button value="female">Female</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+                <div fxFlex fxLayout="column">
+                    <mat-label for="address">Address:</mat-label>
+                    <mat-form-field fxFlex>
+                        <input type="text" id="address" placeholder="Address." matInput ngModel name="address" #addressInput="ngModel"
+                            required>
+                        <mat-error *ngIf="addressInput.hasError('required')">This field is required.</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+                <div fxFlex fxLayout="column">
+                    <mat-label for="phone">Phone:</mat-label>
+                    <mat-form-field fxFlex>
+                        <input type="text" id="phone" placeholder="+381xxxxxxxxx" matInput ngModel name="phone" #phoneInput="ngModel"
+                            required>
+                        <mat-error *ngIf="phoneInput.hasError('required')">This field is required.</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+                <div fxFlex fxLayout="column">
+                    <mat-label for="fav_category">Choose your favorite category:</mat-label>
+                    <mat-form-field fxFlex>
+                        <mat-select [(value)]="fav_category" required>
+                            <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px">
+                <mat-checkbox color="warn" ngModel name="acceptance" required>
+                    I have read the terms and conditions and accept them
+                </mat-checkbox>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px" fxLayoutAlign="center">
+                <button fxFlex="40%" type="submit" mat-raised-button color="warn" [disabled]="f.invalid">Register</button>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="15px" fxLayoutAlign="center">
+                <mat-label *ngIf="errorExists">{{errorText}}</mat-label>
+            </div>
+        </div>
+    </form>
+</section>

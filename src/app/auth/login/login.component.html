@@ -1,0 +1,37 @@
+<section>
+    <mat-card fxLayout="row" class="login-card">
+        <mat-card-content mat-dialog-title fxFlex class="login-card-content">
+            <div fxLayoutAlign="start center">
+                <mat-icon>person</mat-icon>My account
+            </div>
+            <mat-dialog-actions fxFlex fxLayoutAlign="end center">
+                <div mat-dialog-close>
+                    <mat-icon fxLayoutAlign="center center">close</mat-icon>
+                </div>
+            </mat-dialog-actions>
+        </mat-card-content>
+    </mat-card>
+    <form class="login-form" fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)"
+    fxLayoutGap="15px">
+        <mat-form-field class="col-10">
+            <input type="email" placeholder="Email." matInput ngModel name="email"
+            #emailInput="ngModel" required email>
+            <mat-error *ngIf="emailInput.hasError('required')">This field is required.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-10">
+            <input type="password" placeholder="Password." matInput ngModel name="password" required
+            minlength="8" #passInput="ngModel">
+            <mat-hint>{{ passInput.value?.length }} / 8</mat-hint>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="warn" [disabled]="f.invalid">Log in</button>
+        <mat-label *ngIf="errorExists">{{errorText}}</mat-label>
+        <div fxFlex fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <hr class="hr-login"/>
+            <p>- or -</p>
+            <hr class="hr-login"/>
+        </div>
+        <a routerLink="/signup" class="col-10 reg-btn" mat-dialog-close>
+            <button fxFlex mat-stroked-button color="warn">Register</button>
+        </a>
+    </form>
+</section>

@@ -1,0 +1,59 @@
+.logo {
+    max-width: 100%;
+    max-height: 100%;
+}
+.logo_holder {
+    height:80px;
+}
+.icon-display {
+    transform: scale(2);
+}
+mat-toolbar {
+    height: 80px;
+}
+mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+    height: 100%;
+}
+mat-sidenav{
+    width: 240px;
+}
+a {
+    color:white;
+    text-decoration: none;
+}
+a:hover {
+    color: white;
+}
+.a-font-a{
+    font-size: 16px;
+}
+.a-icon-display {
+    transform: scale(1.3);
+}
+.toolbar-padding{
+    padding: 0 32px;
+}
+.toolbar-sticky {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
+}
+::ng-deep .mat-badge-small.mat-badge-above .mat-badge-content{
+    top: -5px;
+}
+.pay-program {
+    height: 30px;
+}
+.footer-margin {
+    margin-top: 15px;
+}
+.p-10-px{
+    padding: 10px;
+}
+.popper-logged {
+    position: absolute; 
+    top: 70px; 
+    right: 10px;
+    background-color: white;
+}

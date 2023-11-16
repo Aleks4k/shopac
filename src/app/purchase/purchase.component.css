@@ -1,0 +1,14 @@
+.empty-cart {
+    height: 500px;
+}
+.items-container {
+    background-color: white;
+    padding-bottom: 15px;
+}
+.delete-btn {
+    margin-top: 15px;
+    width: 100%;
+}
+.h2-style{
+    font-size: 50px;
+}
