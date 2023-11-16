@@ -1,6 +1,7 @@
 .items-container {
     background-color: white;
     padding-bottom: 15px;
+    overflow-x: scroll;
 }
 .empty-cart {
     height: 500px;
