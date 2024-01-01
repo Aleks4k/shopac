@@ -15,6 +15,9 @@
 .hm{
     position: relative; /* Set the parent to a relative position */
 }
+.item_cart_holder{
+    position: relative;
+}
 .discount{
     position:absolute;
     width:50px;

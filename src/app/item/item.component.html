@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center" [ngClass]="!this.less_place?'product':'product_lp'">
+<div class="item_cart_holder" fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center" [ngClass]="!this.less_place?'product':'product_lp'">
     <img fxFlex [src]="product.image" alt="{{ product.name }}">
     <h2>{{ product.name }}</h2>
     <div *ngIf="!this.less_place">
